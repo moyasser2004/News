@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news/cube.dart';
+import 'package:news/cubite/cube.dart';
 
-import '../dio/webViwe.dart';
+import 'splash_screen/webViwe.dart';
 
 
-class sience extends StatelessWidget {
-  const sience({Key? key}) : super(key: key);
+class Sports extends StatelessWidget {
+  const Sports({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<newCubit, newsStates>(
+    return BlocConsumer<newsCubit, newsStates>(
       listener: (context, state) {
       },
       builder: (context, state) {
-        var list = newCubit.get(context).Science;
+        List list = newsCubit.get(context).sports;
         if (   list.length!=0) {
           return ListView.separated(
             physics: BouncingScrollPhysics(),
             itemBuilder: (context,i){
               return GestureDetector(
-                onTap: ()async{
-                  print("pres");
+                onTap: (){
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context){
                         return WebViewExample(list[i]['url']);
@@ -36,24 +35,15 @@ class sience extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsJhyDXZ3H-7cO5jQYWDlpltuVIEoGjUVz3w&usqp=CAU'
-                              ),
-                            ),
-                          ),
+                        child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrIj8HZt0DDLElLshxo10XSZq7lLGllz-3ug&usqp=CAU',
                           height: 100,
                           width: 100,
-                        ),
+                        )
                       ),
-                      SizedBox(width: 10),
+                     const SizedBox(width: 10),
                       Expanded(
                         flex: 4,
-                        child: Container(
+                        child: SizedBox(
                           height: 100,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -75,7 +65,7 @@ class sience extends StatelessWidget {
               );
             }
             , separatorBuilder: (context,i){
-            return Divider(
+            return const Divider(
               color: Colors.black,
               height: 2,
               thickness: 2,
@@ -84,7 +74,7 @@ class sience extends StatelessWidget {
             , itemCount:list.length,//list.length,
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(
               color: Colors.blue,
             ),

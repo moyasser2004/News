@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news/cube.dart';
-import 'package:news/dio/webViwe.dart';
+import 'package:news/cubite/cube.dart';
+import 'package:news/screens/splash_screen/webViwe.dart';
 
 
-class busines extends StatelessWidget {
-  const busines({Key? key}) : super(key: key);
+class Business extends StatelessWidget {
+  const Business({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<newCubit, newsStates>(
-      listener: (context, state) {
-      },
+    return BlocConsumer<newsCubit, newsStates>(
+      listener: (context, state) {},
       builder: (context, state) {
-        var list = newCubit.get(context).Busines;
-        if (   list.length!=0) {
+        List list = newsCubit.get(context).business;
+        if ( list.length!=0) {
           return ListView.separated(
              physics: BouncingScrollPhysics(),
               itemBuilder: (context,i){
                 return GestureDetector(
                   onTap: (){
-                    print("pres");
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context){
                           return WebViewExample(list[i]['url']);
@@ -35,22 +33,12 @@ class busines extends StatelessWidget {
                       children: [
                         Expanded(
                           flex: 2,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIKT0_G6HMSUGtLMvJwbDMNegViOKqURcPJM4RiNokNYM5XWEf6IQxD4-wwolupZexrnA&usqp=CAU'
-                                  //'https://qph.cf2.quoracdn.net/main-qimg-51b73d79311f9f986053269187b8f87d-lq'
-                                ),
-                              ),
-                            ),
-                            height: 100,
+                          child: Image.network( 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIKT0_G6HMSUGtLMvJwbDMNegViOKqURcPJM4RiNokNYM5XWEf6IQxD4-wwolupZexrnA&usqp=CAU'
+                          ,height: 100,
                             width: 100,
-                          ),
+                          )
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Expanded(
                           flex: 4,
                           child: Container(
@@ -75,7 +63,7 @@ class busines extends StatelessWidget {
                 );
                }
               , separatorBuilder: (context,i){
-                return Divider(
+                return const Divider(
                   color: Colors.black,
                   height: 2,
                   thickness: 2,
@@ -84,7 +72,7 @@ class busines extends StatelessWidget {
               , itemCount:list.length,//list.length,
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(
               color: Colors.blue,
             ),

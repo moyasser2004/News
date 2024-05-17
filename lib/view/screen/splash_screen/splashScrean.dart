@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:news/control.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../main_screen.dart';
 
 class MyCustomWidget extends StatefulWidget {
   @override
@@ -14,8 +15,8 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var mgh=MediaQuery.of(context).size.height;
-    var mgw=MediaQuery.of(context).size.width;
+    double mgh=MediaQuery.sizeOf(context).height;
+    double mgw=MediaQuery.sizeOf(context).width;
     return Scaffold(
       body: Center(
         child: Column(
@@ -86,7 +87,7 @@ class _SecondClassState extends State<SecondClass>
           Navigator.of(context).pushReplacement(
             PageTransition(
               type: PageTransitionType.bottomToTop,
-              child: ThirdPage(),
+              child: Homepage(),
             ),
           );
           Timer(
@@ -111,7 +112,6 @@ class _SecondClassState extends State<SecondClass>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     scaleController.dispose();
     super.dispose();
   }
@@ -140,10 +140,3 @@ class _SecondClassState extends State<SecondClass>
   }
 }
 
-class ThirdPage extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return Homepage();
-  }
-}

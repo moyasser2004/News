@@ -1,28 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news/cube.dart';
+import 'package:news/cubite/cube.dart';
 
-import '../dio/webViwe.dart';
+import 'splash_screen/webViwe.dart';
 
 
-class sports extends StatelessWidget {
-  const sports({Key? key}) : super(key: key);
+class Science extends StatelessWidget {
+  const Science({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<newCubit, newsStates>(
+    return BlocConsumer<newsCubit, newsStates>(
       listener: (context, state) {
       },
       builder: (context, state) {
-        var list = newCubit.get(context).Sports;
-        if (   list.length!=0) {
+        List list = newsCubit.get(context).science;
+        if ( list.length!=0) {
           return ListView.separated(
             physics: BouncingScrollPhysics(),
             itemBuilder: (context,i){
               return GestureDetector(
-                onTap: (){
-                  print("pres");
+                onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context){
                         return WebViewExample(list[i]['url']);
@@ -37,24 +35,16 @@ class sports extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrIj8HZt0DDLElLshxo10XSZq7lLGllz-3ug&usqp=CAU'
-                              ),
-                            ),
-                          ),
-                          height: 100,
-                          width: 100,
-                        ),
+                        child: Image.network(
+                          "https://mrslopez18.weebly.com/uploads/2/5/8/3/25836804/science_orig.jpg",
+                            height: 100,
+                           width: 100,
+                        )
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         flex: 4,
-                        child: Container(
+                        child: SizedBox(
                           height: 100,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -76,7 +66,7 @@ class sports extends StatelessWidget {
               );
             }
             , separatorBuilder: (context,i){
-            return Divider(
+            return const Divider(
               color: Colors.black,
               height: 2,
               thickness: 2,
@@ -85,7 +75,7 @@ class sports extends StatelessWidget {
             , itemCount:list.length,//list.length,
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(
               color: Colors.blue,
             ),
