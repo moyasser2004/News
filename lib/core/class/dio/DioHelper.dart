@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 
-class DioHelper {
+// baserUrl = https://newsapi.org/
+
+abstract class DioHelper {
   static Dio? dio;
 
   static void init() {
@@ -19,4 +21,11 @@ class DioHelper {
     return await dio!.get(url, queryParameters: query);
   }
 
+  static Future<Response> postData({
+    required String url,
+    required Map<String, dynamic> query,
+    Map<String, dynamic>? data,
+  }) async {
+    return await dio!.post(url, queryParameters: query, data: data);
+  }
 }

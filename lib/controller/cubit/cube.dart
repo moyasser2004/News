@@ -1,54 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news/screens/businec.dart';
-import 'package:news/screens/search.dart';
-import 'package:news/screens/sience.dart';
-import 'package:news/screens/sporst.dart';
 
-import '../dio/DioHelper.dart';
+import '../../core/class/dio/DioHelper.dart';
+import '../../view/screen/home_screen/businec.dart';
+import '../../view/screen/home_screen/search.dart';
+import '../../view/screen/home_screen/sience.dart';
+import '../../view/screen/home_screen/sporst.dart';
+import '../states/news_states.dart';
 
+class NewsCubit extends Cubit<NewsStates> {
+  NewsCubit() : super(newsInitialStatus());
 
-abstract class newsStates {}
-class newsInitialStatus extends newsStates {}
-
-
-class businessSuccess extends newsStates {}
-class sinceSuccess extends newsStates {}
-class sportsSuccess extends newsStates {}
-class searchSuccess extends newsStates {}
-
-
-class sinceFail extends newsStates {
-  final String error;
-  sinceFail(this.error);
-}
-class businessFail extends newsStates {
-  final String error;
-  businessFail(this.error);
-}
-class sportsFail extends newsStates {
-  final String error;
-  sportsFail(this.error);
-}
-class searchFail extends newsStates {
-  final String error;
-  searchFail(this.error);
-}
-
-class businessLoading extends newsStates {}
-class sinceLoading extends newsStates {}
-class sportsLoading extends newsStates {}
-class searchLoading extends newsStates {}
-
-
-class bottomNavigationBar extends newsStates {}
-class IsDark extends newsStates {}
-
-
-class newsCubit extends Cubit<newsStates> {
-  newsCubit() : super(newsInitialStatus());
-
-  static newsCubit get(context) => BlocProvider.of(context);
+  static NewsCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
   bool theme = false;
@@ -64,13 +27,13 @@ class newsCubit extends Cubit<newsStates> {
     Business(),
     Sports(),
     Science(),
-    Setting(),
+    Search1(),
   ];
 
   void getIndex(int index) {
     currentIndex = index;
     if (currentIndex == 0) {
-       getBusiness();
+      getBusiness();
     } else if (currentIndex == 1) {
       getSports();
     } else {
@@ -148,7 +111,6 @@ class newsCubit extends Cubit<newsStates> {
     }
   }
 
-
   void getSearch(String data) {
     Search.clear();
     emit(searchLoading());
@@ -166,10 +128,8 @@ class newsCubit extends Cubit<newsStates> {
     });
   }
 
-
   isDark() {
     theme = !theme;
     emit(IsDark());
   }
-
 }
